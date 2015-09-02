@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+   
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        #messages { list-style-type: none; margin: 0; padding: 0; width:50%; float:left; display:inline-block;}
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+        #container {width:50%; float:left;}
+    </style>
+  </head>
+  <body>
+      <h1>Average</h1><h2 id="overall"></h2>
+      <input type="hidden" id="SPDelta" />
+    <ul id="messages"></ul>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+     
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>     
+    <script>
+      var socket = io();
+        socket.emit('successfully-connected', null);
+        socket.on('news', function(msg){
+            //console.log(msg);
+            if(msg && msg.sentiment){
+                $('#messages').prepend($('<li>').append(
+                    msg.sentiment.toFixed(4) + ", " + ", From: " + msg.user + ", " + msg.text)
+                );
+                if($('#messages').find('li').length > 1000){
+                    $('#messages').find('li:last-child').remove();
+                }
+               
+                $('#SPDelta').val(msg.SPDelta);
+            }
+            if(msg.overall){
+             $('#overall').text(msg.overall.toFixed(8));  
+            }
+        });
+    </script>
+     
+    <script>
+        $(function () {
+            $(document).ready(function () {
+                Highcharts.setOptions({
+                    global: {
+                        useUTC: false
+                    }
+                });
+ 
+                $('#container').highcharts({
+                    chart: {
+                        type: 'spline',
+                        animation: Highcharts.svg, // don't animate in old IE
+                        marginRight: 10,
+                        events: {
+                            load: function () {
+ 
+                                // set up the updating of the chart each second
+                                var series = this.series[0];
+                                var spSeries = this.series[1];
+                               
+                                setInterval(function(){
+                                    var x = (new Date()).getTime(), // current time
+                                        y = parseFloat($('#overall').text());
+                                   
+                                    spSeries.addPoint([x, parseFloat($('#SPDelta').val())], true, true);
+                                   
+                                    series.addPoint([x, y], true, true);
+                                   
+                                },5000);
+                              
+                            }
+                        }
+                    },
+                    title: {
+                        text: 'Setniment Over Time'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        tickPixelInterval: 1000,
+                        title : {
+                         text: "Time"  
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Value'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 6);
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    series: [
+                        {
+                            name: 'Twitter Sentiment',
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [],
+                                    time = (new Date()).getTime(),
+                                    i;
+ 
+                                for (i = -19; i <= 0; i += 1) {
+                                    data.push({
+                                        x: time + i * 1000,
+                                        y: 1/(1 + Math.pow(Math.E, -1 * Math.random()))
+                                    });
+                                }
+                                return data;
+                            }())
+                        },
+                        {
+                            name: 'S&P Change',
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [],
+                                    time = (new Date()).getTime(),
+                                    i;
+ 
+                                for (i = -19; i <= 0; i += 1) {
+                                    data.push({
+                                        x: time + i * 1000,
+                                        y: 1/(1 + Math.pow(Math.E, -1 * Math.random()))
+                                    });
+                                }
+                                return data;
+                            }())
+                        },
+                    ]
+                });
+            });
+        });     
+      
+    </script>
+     
+  </body>
+</html>

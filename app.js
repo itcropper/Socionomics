@@ -1,0 +1,37 @@
+
+var tweeter = require('./DataMining/TwitterMiner'),
+    priceScraper = require('./DataMining/PriceScraper').checkPage,
+    normalize = require('./Helpers/Equations').sigmoid,
+    twitter = require('ntwitter'),
+    app = require('express')(),
+    http = require( "http" ).createServer( app ),
+    io = require( "socket.io" )( http );
+
+app.set('view engine', 'vash');
+
+
+http.listen(8000, "127.0.0.1", null, function(){
+    console.log("Listening on 127.0.0.1/8000");
+});
+ 
+//routs
+app.get('/', function (req, res) {
+   res.sendfile(__dirname + '/index.html');
+});
+ 
+//open sockets
+io.on('connection', function (socket) {
+    socket.emit('news', { sentiment: '', text: "begin" });
+    socket.on('successfully-connected', function (data) {
+        console.log(data);
+    });
+});
+
+//stream Tweets
+tweeter.stream(function(o){
+    io.emit('news', o);
+});
+ 
+priceScraper();
+setInterval(priceScraper, 1000);
+ 

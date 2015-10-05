@@ -43,7 +43,7 @@ twitterCharts.prototype.init = function () {
             },
             xAxis: {
                 type: 'datetime',
-                tickPixelInterval: 1000,
+                tickPixelInterval: 100,
                 title : {
                  text: "Time"  
                 }

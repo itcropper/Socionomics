@@ -5,7 +5,7 @@ var twitter = require('ntwitter'),
     configVars = {};
 
 try {
-    configVars = require('../local-vars.js');
+    configVars = require('../local-vars.js').tokens;
 }catch(e){
     configVars = {
         consumer_key: process.env.consumer_key,
@@ -25,11 +25,10 @@ var tweetsInLastMinute = 0,
 var getNumberOfTweets = function(){
     var tweets = tweetsInLastMinute;
     tweetsInLastMinute = 0;
-    console.log(callBackFunction);
     callBackFunction({tweetsPerMinute : tweets});
 }
 
-var perMinuteInterval = setInterval(getNumberOfTweets, 1000 * 20);
+var perMinuteInterval = setInterval(getNumberOfTweets, 1000 * 60);
 
 exports.stream = function(callback){
     if(typeof(callback) !== undefined){
@@ -40,10 +39,7 @@ exports.stream = function(callback){
         'track': tweetFeeds.feeds
     },
     function(stream) {
-        //console.log('hey what the 1!');
         stream.on('data', function (data, err) {
-            //console.log('hey what the duece!');
-            //console.log(data, err);
             tweetsInLastMinute += 1;
         }); 
     });

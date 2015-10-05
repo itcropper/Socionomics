@@ -7,7 +7,6 @@ var twitter = require('ntwitter'),
 try {
     configVars = require('../local-vars.js');
 }catch(e){
-    console.log(e);
     configVars = {
         consumer_key: process.env.consumer_key,
         consumer_secret: process.env.consumer_secret,
@@ -15,8 +14,6 @@ try {
         access_token_secret: process.env.access_token_secret
     }
 }
-
-console.log(configVars);
 
 var twit = new twitter(configVars);
  

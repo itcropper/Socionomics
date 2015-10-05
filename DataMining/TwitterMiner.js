@@ -1,14 +1,24 @@
 var twitter = require('ntwitter'),
     tweetFeeds = require('./TwitterFeeds'),
     sentiment = require('sentiment'),
-    normalize = require('../Helpers/Equations').sigmoid;
+    normalize = require('../Helpers/Equations').sigmoid,
+    configVars = {};
 
-var twit = new twitter({
-    consumer_key: process.env.consumer_key,
-    consumer_secret: process.env.consumer_secret,
-    access_token_key: process.env.access_token_key,
-    access_token_secret: process.env.access_token_secret
-});
+try {
+    configVars = require('../local-vars.js');
+}catch(e){
+    console.log(e);
+    configVars = {
+        consumer_key: process.env.consumer_key,
+        consumer_secret: process.env.consumer_secret,
+        access_token_key: process.env.access_token_key,
+        access_token_secret: process.env.access_token_secret
+    }
+}
+
+console.log(configVars);
+
+var twit = new twitter(configVars);
  
 var lastTenThousandScores = [];
 

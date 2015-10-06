@@ -1,7 +1,6 @@
 var twitter = require('ntwitter'),
     tweetFeeds = require('./TwitterFeeds'),
-    sentiment = require('sentiment'),
-    normalize = require('../Helpers/Equations').sigmoid,
+    markerController = require('../Controllers/TwitterMarker'),
     configVars = {};
 
 try {
@@ -22,13 +21,15 @@ var lastTenThousandScores = [];
 var tweetsInLastMinute = 0,
     callBackFunction = function(){};
 
-var getNumberOfTweets = function(){
+var pushTweetCountToDB = function(){
     var tweets = tweetsInLastMinute;
     tweetsInLastMinute = 0;
-    callBackFunction({tweetsPerMinute : tweets});
+    markerController.save(tweets); 
 }
 
-var perMinuteInterval = setInterval(getNumberOfTweets, 1000 * 60);
+var perMinuteInterval = setInterval(function(){
+    pushTweetCountToDB();
+}, 1000 * 60);
 
 exports.stream = function(callback){
     if(typeof(callback) !== undefined){

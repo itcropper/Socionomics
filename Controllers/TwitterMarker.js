@@ -1,7 +1,7 @@
 var Marker = require('../models/TweetMarker');
     
     
-exports.save = function(count, cb){
+exports.save = function(count, cb){ 
     var marker = new Marker();
     
     marker.time = new Date();

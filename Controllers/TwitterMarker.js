@@ -1,4 +1,4 @@
-var Marker = require('../models/TweetMarker');
+var Marker = require('../Models/TweetMarker.js');
     
     
 exports.save = function(count, cb){ 

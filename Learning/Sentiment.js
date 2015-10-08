@@ -1,3 +1,3 @@
-var sentiment = require('sentiment');
+//var sentiment = require('sentiment');
 
-exports.sentiment  = sentiment;
+//exports.sentiment  = sentiment;

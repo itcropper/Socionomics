@@ -1,3 +1,4 @@
+/*
 var brain = require('brain');
 
 
@@ -51,3 +52,4 @@ for(var i = 0; i < training.length; i++){
 net.train(trainingInput);
 
 exports.net = net;
+*/

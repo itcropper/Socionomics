@@ -1,3 +1,29 @@
+Date.prototype.toPrettyDateTime = function(e){
+     var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+
+    function formatAMPM(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    }
+    
+    var day = this.getDate();
+    var monthIndex = this.getMonth();
+    var year = this.getFullYear();  
+    
+    return day + ' ' + monthNames[monthIndex] + ' ' + year + ' ' + formatAMPM(this);
+}
+
 var detailChart = function($container){
     this.$container = $container;
 }
@@ -8,8 +34,6 @@ detailChart.prototype.init = function () {
     $.getJSON('/data', function (data) {
         var detailChart;
         
-        console.log(data);
-
         $(document).ready(function () {
 
             // create the detail chart
@@ -17,10 +41,10 @@ detailChart.prototype.init = function () {
 
                 // prepare the detail chart
                 var detailData = [],
-                    detailStart = data[0][0];
+                    detailStart = new Date(data[0].time).getTime();
 
                 $.each(masterChart.series[0].data, function () {
-                    if (this.time >= detailStart) {
+                    if (new Date(this.time).getTime() >= detailStart) {
                         detailData.push(this.count);
                     }
                 });
@@ -57,7 +81,7 @@ detailChart.prototype.init = function () {
                     tooltip: {
                         formatter: function () {
                             var point = this.points[0];
-                            return '<b>' + point.series.name + '</b><br/>' + Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' + Highcharts.numberFormat(point.y, 2);
+                            return '<b>' + point.series.name + '</b><br/>' + new Date(this.x).toPrettyDateTime() + '<br/>Number Of Tweets: ' + Highcharts.numberFormat(point.y, 0);
                         },
                         shared: true
                     },
@@ -78,9 +102,9 @@ detailChart.prototype.init = function () {
                         }
                     },
                     series: [{
-                        name: 'USD to EUR',
+                        name: 'Tweets per minute',
                         pointStart: detailStart,
-                        pointInterval: 24 * 3600 * 1000,
+                        pointInterval: 60 * 1000,
                         data: detailData
                     }],
 
@@ -118,7 +142,9 @@ detailChart.prototype.init = function () {
                                         detailData.push([this.x, this.y]);
                                     }
                                 });
-
+                                
+                                
+                                
                                 // move the plot bands to reflect the new detail span
                                 xAxis.removePlotBand('mask-before');
                                 xAxis.addPlotBand({
@@ -149,11 +175,11 @@ detailChart.prototype.init = function () {
                     xAxis: {
                         type: 'datetime',
                         showLastTickLabel: true,
-                        maxZoom: 14 * 24 * 3600000, // fourteen days
+                        maxZoom: 14 * 24 * 3600000, // 14 days
                         plotBands: [{
                             id: 'mask-before',
-                            from: data[0][0],
-                            to: data[data.length - 1][0],
+                            from: new Date(data[0].time).getTime(),
+                            to: new Date(data[data.length - 1].time).getTime(),
                             color: 'rgba(0, 0, 0, 0.2)'
                         }],
                         title: {
@@ -208,8 +234,8 @@ detailChart.prototype.init = function () {
                     series: [{
                         type: 'area',
                         name: 'USD to EUR',
-                        pointInterval: 24 * 3600 * 1000,
-                        pointStart: data[0][0],
+                        pointInterval: 60 * 1000,
+                        pointStart: new Date(data[0].time).getTime(),
                         data: data
                     }],
 
@@ -243,7 +269,7 @@ detailChart.prototype.init = function () {
             createMaster();
         });
     });
-});
+};
 
 var chart = new detailChart('#container');
 chart.init();

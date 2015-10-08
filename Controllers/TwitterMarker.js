@@ -14,18 +14,14 @@ exports.save = function(count, cb){
 
 exports.getAll = function(cb){
     
-    Marker.find({ $query : {
-                    "count" : { 
-                        $exists : true 
-                    }
+    Marker.find({ 
+                $query : {
+                    "count" : { $exists : true }
                 },
-                $orderby: { 
-                    time : 1 
-                } 
+                $orderby: {  time : 1 }//from furthest to most recent 
             }, 
         function(err, res){
-            if(!err){
-                console.log(res);    
+            if(!err){ 
                 cb(res); 
             }else{
                 console.log("ERROR", err);

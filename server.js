@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
 
 app.get('/data', function(req, res){
     marker.getAll(res.json.bind(res));  
-});
+}); 
  
 //open sockets
 io.on('connection', function (socket) {

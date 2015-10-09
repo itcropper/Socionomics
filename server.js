@@ -57,6 +57,7 @@ app.get('/data', function(req, res){
 //tweeter.stream(function(o){
 //    io.emit('news', o);
 //});
+tweeter.stream();
  
 //priceScraper();
 //setInterval(priceScraper, 1000);

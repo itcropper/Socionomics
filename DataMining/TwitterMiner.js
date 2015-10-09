@@ -21,10 +21,7 @@ var tweetCount = 0,
     timeSinceLastPush = new Date();
     callBackFunction = function(){};
 
-exports.stream = function(callback){
-    if(typeof(callback) !== undefined){
-        callBackFunction = callback;
-    }
+exports.stream = function(){
     
     twit.stream('statuses/filter', {
         'track': tweetFeeds.feeds

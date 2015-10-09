@@ -22,5 +22,6 @@ module.exports.feeds = [
     '#guncontrol',
     '#gunviolence',
     '#notonemore',
-    '#gunfreezones'    
+    '#gunfreezones',
+    '#StopGunViolence'
 ];

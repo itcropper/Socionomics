@@ -46,17 +46,17 @@ app.get('/data', function(req, res){
 }); 
  
 //open sockets
-io.on('connection', function (socket) {
-    socket.emit('news', { sentiment: '', text: "begin" });
-    socket.on('successfully-connected', function (data) {
-        console.log(data);
-    });
-});
+//io.on('connection', function (socket) {
+//    socket.emit('news', { sentiment: '', text: "begin" });
+//    socket.on('successfully-connected', function (data) {
+//        console.log(data);
+//    });
+//});
 
 //stream Tweets
-tweeter.stream(function(o){
-    io.emit('news', o);
-});
+//tweeter.stream(function(o){
+//    io.emit('news', o);
+//});
  
 //priceScraper();
 //setInterval(priceScraper, 1000);

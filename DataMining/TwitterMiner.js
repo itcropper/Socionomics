@@ -1,7 +1,8 @@
 var twitter = require('ntwitter'),
     tweetFeeds = require('./TwitterFeeds'),
     markerController = require('../Controllers/TwitterMarker'),
-    configVars = {};
+    configVars = {},
+    _INTERVAL_TIME = 1000 * 60 * 20; //20 minutes
 
 try {
     configVars = require('../local-vars.js').tokens;
@@ -15,21 +16,10 @@ try {
 }
 
 var twit = new twitter(configVars);
- 
-var lastTenThousandScores = [];
 
-var tweetsInLastMinute = 0,
+var tweetCount = 0,
+    timeSinceLastPush = new Date();
     callBackFunction = function(){};
-
-var pushTweetCountToDB = function(){
-    var tweets = tweetsInLastMinute;
-    tweetsInLastMinute = 0;
-    markerController.save(tweets); 
-}
-
-var perMinuteInterval = setInterval(function(){
-    pushTweetCountToDB();
-}, 1000 * 60);
 
 exports.stream = function(callback){
     if(typeof(callback) !== undefined){
@@ -41,7 +31,19 @@ exports.stream = function(callback){
     },
     function(stream) {
         stream.on('data', function (data, err) {
-            tweetsInLastMinute += 1;
+            tweetCount += 1;
         }); 
     });
 }
+
+var pushTweetCountToDB = function(){
+    var minutesFromLast = (new Date() - timeSinceLastPush)/1000/60,
+        tweets = Math.round(tweetCount / minutesFromLast);
+    
+    tweetCount = 0;
+    markerController.save(tweets); 
+}
+
+setInterval(function(){
+    pushTweetCountToDB();
+}, _INTERVAL_TIME); 

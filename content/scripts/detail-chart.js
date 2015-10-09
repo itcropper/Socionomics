@@ -104,7 +104,7 @@ detailChart.prototype.init = function () {
                     series: [{
                         name: 'Tweets per minute',
                         pointStart: detailStart,
-                        pointInterval: 60 * 1000,
+                        pointInterval: 20 * 60 * 1000,
                         data: detailData
                     }],
 

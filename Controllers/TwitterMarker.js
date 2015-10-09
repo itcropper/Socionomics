@@ -14,13 +14,11 @@ exports.save = function(count, cb){
 
 exports.getAll = function(cb){
     
-    Marker.find({ 
-                $query : {
-                    "count" : { $exists : true }
-                },
-                $orderby: {  time : 1 }//from furthest to most recent 
-            }, 
-        function(err, res){
+    Marker
+        .find({"count" : { $exists : true }})
+        .sort({ time : 1 })
+        .limit(10000)
+        .exec(function(err, res){
             if(!err){ 
                 cb(res); 
             }else{

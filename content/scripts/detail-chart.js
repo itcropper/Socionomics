@@ -133,6 +133,11 @@ detailedChart.prototype.init = function () {
                      console.log( detailChart.xAxis);
                 }
             }
+            
+            if(plotLines.every(el => el !== undefined){
+                detailChart.xAxis.plotLines = plotLines;
+            }
+            
 
             // create the master chart
             function createMaster() {

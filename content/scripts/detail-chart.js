@@ -45,12 +45,14 @@ detailedChart.prototype.init = function () {
                 var detailData = [],
                     detailStart = new Date(data.tweets[0].time).getTime();
                     plotLines = data.shootings.map(function(v){
-                       return {
-                        color: 'red',
-                        dashStyle: 'solid',
-                        value: Date.UTC(2015, 9, 10, 12, 36, 47),
-                        width: 2 
-                       };
+                        if(v.time){
+                           return {
+                            color: 'red',
+                            dashStyle: 'solid',
+                            value: Date.UTC(2015, 9, 10, 12, 36, 47),
+                            width: 2 
+                           };
+                        }
                     });
                                 
                 console.log(plotLines);

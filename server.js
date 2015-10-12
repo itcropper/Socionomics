@@ -9,7 +9,7 @@ var tweeter = require('./DataMining/TwitterMiner'),
     http = require( "http" ).createServer( app ),
     io = require( "socket.io" )( http ),
     mongoose = require('mongoose'),
-    marker = require('./Controllers/TwitterMarker'),
+    data = require('./Controllers/Data-Controller'),
     exphbs  = require('express-handlebars');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/data', function(req, res){
-    marker.getAll(res.json.bind(res));  
+    data.getAll(res.json.bind(res));  
 }); 
  
 //open sockets

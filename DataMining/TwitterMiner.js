@@ -16,7 +16,7 @@ try {
 }
 
 var twit = new twitter(configVars);
-
+var lastTweet = {};
 var tweetCount = 0,
     timeSinceLastPush = new Date();
     callBackFunction = function(){};
@@ -29,6 +29,7 @@ exports.stream = function(){
     function(stream) {
         stream.on('data', function (data, err) {
             tweetCount += 1;
+            lastTweet = data;
         }); 
     });
 }
@@ -37,8 +38,9 @@ var pushTweetCountToDB = function(){
     var minutesFromLast = (new Date() - timeSinceLastPush)/1000/60,
         tweets = Math.round(tweetCount / minutesFromLast);
     
+    timeSinceLastPush = new Date();
     tweetCount = 0;
-    markerController.save(tweets); 
+    markerController.save(tweets, lastTweet.created_at); 
 }
 
 setInterval(function(){

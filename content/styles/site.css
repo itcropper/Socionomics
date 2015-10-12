@@ -10,3 +10,7 @@
 /* start commented backslash hack \*/
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
+
+#master-container {
+ display:none;   
+}

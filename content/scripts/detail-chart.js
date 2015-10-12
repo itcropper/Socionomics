@@ -127,18 +127,11 @@ detailedChart.prototype.init = function () {
 
                 }).highcharts(); // return chart
                 
-                if(plotLines.every(m => m !== undefined)){
-                   
-                   detailChart.xAxis.plotLines = plotLines;
-                     console.log( detailChart.xAxis);
+                if(plotLines.every(el => el !== undefined)){
+                    detailChart.xAxis.plotLines = plotLines;
                 }
             }
             
-            if(plotLines.every(el => el !== undefined){
-                detailChart.xAxis.plotLines = plotLines;
-            }
-            
-
             // create the master chart
             function createMaster() {
                 $('#master-container').highcharts({ }, function (masterChart) {
@@ -159,8 +152,7 @@ detailedChart.prototype.init = function () {
                     top: 300,
                     height: 100,
                     width: '100%'
-                })
-                    .appendTo($container);
+                }).appendTo($container);
             
 
             // create master and in its callback, create the detail chart

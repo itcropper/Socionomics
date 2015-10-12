@@ -1,3 +1,40 @@
+html {
+    
+}
+
+
+html a {
+    text-decoration: none;
+    color:black;
+}
+p.large {
+    font-size:22px;
+}
+.small {
+    font-size:12px;
+}
+.text-white {
+    color:white !important;
+}
+.text-white * {
+    color:white !important;
+}
+.center {
+    margin:0 auto;
+    text-align: center;
+}
+
+
+.quarter{
+    width:25%;
+}
+.third{
+    width:33%;
+}
+.half {
+    width:50%;
+}
+
 .clearfix:after {
      visibility: hidden;
      display: block;
@@ -13,4 +50,17 @@
 
 #master-container {
  display:none;   
+}
+
+.boxed {
+    border-radius: 5px;
+    padding:15px;
+    text-align: center;
+    margin:0 auto;
+    color:white;
+    display:inline-block;
+}
+
+.boxed.blue {
+    background-color:#1f8dd6;
 }

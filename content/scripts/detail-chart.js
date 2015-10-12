@@ -54,8 +54,6 @@ detailedChart.prototype.init = function () {
                            };
                         }
                     });
-                                
-                console.log(plotLines);
                 
                 $.each(data.tweets, function () {
                     if (new Date(this.time).getTime() >= detailStart) {
@@ -84,8 +82,7 @@ detailedChart.prototype.init = function () {
                         text: 'Number Of Tweets per minute relating to gun violence'
                     },
                     xAxis: {
-                        type: 'datetime', 
-                        plotLines: plotLines
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
@@ -129,6 +126,12 @@ detailedChart.prototype.init = function () {
                     }
 
                 }).highcharts(); // return chart
+                
+                if(plotLines.every(m => m !== undefined)){
+                   
+                   detailChart.xAxis.plotLines = plotLines;
+                     console.log( detailChart.xAxis);
+                }
             }
 
             // create the master chart
@@ -139,7 +142,7 @@ detailedChart.prototype.init = function () {
             }
 
             // make the container smaller and add a second container for the master chart
-            var $container = $('#container')
+            var $container = $('#detail-chart-container')
                 .css('position', 'relative');
 
             $('<div id="detail-container">')
@@ -153,12 +156,14 @@ detailedChart.prototype.init = function () {
                     width: '100%'
                 })
                     .appendTo($container);
+            
 
             // create master and in its callback, create the detail chart
             createMaster();
+            $container.find('#highcharts-2').css('position', 'relative');
         });
     });
 };
 
-var chart = new detailedChart('#container');
+var chart = new detailedChart('#detail-chart-container');
 chart.init();

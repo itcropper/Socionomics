@@ -66,6 +66,7 @@ detailedChart.prototype.init = function () {
                             dashStyle: 'solid',
                             value: time,
                             width: 2,
+                            zIndex : 5,
                             label: {
                                 text: v.count ? (v.count + " Dead, " + v.location) : v.location,
                                 align: 'top',

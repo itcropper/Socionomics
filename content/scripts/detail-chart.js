@@ -56,8 +56,9 @@ detailedChart.prototype.init = function () {
                     });
                 
                 $.each(data.tweets, function () {
-                    if (new Date(this.time).getTime() >= detailStart) {
-                        detailData.push(this.count);
+                    var date = new Date(new Date(this.time).toLocaleString()).getTime();
+                    if ( date >= detailStart) {
+                        detailData.push({x: date, y: this.count});
                     }
                 });
 
@@ -111,6 +112,9 @@ detailedChart.prototype.init = function () {
                                     }
                                 }
                             }
+                        },
+                        spline: {
+                            turboThreshold: 2000                         
                         }
                     },
                     series: [{

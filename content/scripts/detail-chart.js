@@ -65,7 +65,12 @@ detailedChart.prototype.init = function () {
                             color: 'red',
                             dashStyle: 'solid',
                             value: time,
-                            width: 2 
+                            width: 2,
+                            label: {
+                                text: v.count ? (v.count + " Dead, " + v.location) : v.location,
+                                align: 'top',
+                                y: 20
+                            }
                            };
                         }
                     }).clean(undefined);

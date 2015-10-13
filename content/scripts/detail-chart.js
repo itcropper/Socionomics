@@ -24,6 +24,20 @@ Date.prototype.toPrettyDateTime = function(e){
     return day + ' ' + monthNames[monthIndex] + ' ' + year + ' ' + formatAMPM(this);
 }
 
+Array.prototype.clean = function(deleteValue) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] === deleteValue) {         
+      this.splice(i, 1);
+      i--;
+    }
+  }
+  return this;
+};
+
+var toLocalDate = function(d){
+    return new Date(new Date(d).toLocaleString()).getTime();
+}
+
 var detailedChart = function($container){
     this.$container = $container;
 }
@@ -43,17 +57,20 @@ detailedChart.prototype.init = function () {
 
                 // prepare the detail chart
                 var detailData = [],
-                    detailStart = new Date(data.tweets[0].time).getTime();
+                    detailStart = toLocalDate(data.tweets[0].time),
                     plotLines = data.shootings.map(function(v){
+                        var time = toLocalDate(v.time);
                         if(v.time){
                            return {
                             color: 'red',
                             dashStyle: 'solid',
-                            value: Date.UTC(2015, 9, 10, 12, 36, 47),
+                            value: time,
                             width: 2 
                            };
                         }
-                    });
+                    }).clean(undefined);
+                
+                console.log(plotLines);
                 
                 $.each(data.tweets, function () {
                     var date = new Date(new Date(this.time).toLocaleString()).getTime();
@@ -83,7 +100,8 @@ detailedChart.prototype.init = function () {
                         text: 'Number Of Tweets per minute relating to gun violence'
                     },
                     xAxis: {
-                        type: 'datetime'
+                        type: 'datetime',
+                        plotLines: plotLines
                     },
                     yAxis: {
                         title: {
@@ -130,10 +148,6 @@ detailedChart.prototype.init = function () {
                     }
 
                 }).highcharts(); // return chart
-                
-                if(plotLines.every(el => el !== undefined)){
-                    detailChart.xAxis.plotLines = plotLines;
-                }
             }
             
             // create the master chart

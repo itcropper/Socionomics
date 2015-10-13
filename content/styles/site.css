@@ -2,10 +2,15 @@ html {
     
 }
 
-
+ul {
+   list-style: none;
+}
 html a {
     text-decoration: none;
     color:black;
+}
+.underlined {
+    text-decoration: underline;
 }
 p.large {
     font-size:22px;
@@ -24,6 +29,9 @@ p.large {
     text-align: center;
 }
 
+.left-justify {
+    text-align: left;
+}
 
 .quarter{
     width:25%;
@@ -63,4 +71,13 @@ p.large {
 
 .boxed.blue {
     background-color:#1f8dd6;
+}
+ul.stats li {
+    border-bottom: 1px solid whitesmoke;
+    margin:8px;
+}
+ul.stats b {
+    width: 45px;
+    margin-right: 29px;
+    display: inline-block;
 }

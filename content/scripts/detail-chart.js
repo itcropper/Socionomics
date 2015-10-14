@@ -69,7 +69,7 @@ detailedChart.prototype.init = function () {
                             zIndex : 5,
                             label: {
                                 text: v.count ? (v.count + " Dead, " + v.location) : v.location,
-                                align: 'top',
+                                align: 'left',
                                 y: 20
                             }
                            };

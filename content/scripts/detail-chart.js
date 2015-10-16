@@ -113,7 +113,8 @@ detailedChart.prototype.init = function () {
                         title: {
                             text: "Tweets Per Minute"
                         },
-                        maxZoom: 0.1
+                        maxZoom: 0.1,
+                        floor: 0
                     },
                     tooltip: {
                         formatter: function () {

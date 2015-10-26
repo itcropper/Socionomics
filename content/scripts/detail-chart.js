@@ -128,6 +128,7 @@ detailedChart.prototype.init = function () {
                     },
                     plotOptions: {
                         series: {
+                            turboThreshold: 0,
                             marker: {
                                 enabled: false,
                                 states: {

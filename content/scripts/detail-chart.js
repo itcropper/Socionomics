@@ -69,8 +69,13 @@ detailedChart.prototype.init = function () {
                             zIndex : 5,
                             label: {
                                 text: v.count ? (v.count + " Dead, " + v.location) : v.location,
-                                align: 'left',
-                                y: 20
+                                align: 'left', 
+                                x: -12,
+                                style: {
+                                  color: 'blue',
+                                  fontFamily:"sans-serif",
+                                  fontSize:"10px"
+                               }
                             }
                            };
                         }

@@ -81,8 +81,6 @@ detailedChart.prototype.init = function () {
                         }
                     }).clean(undefined);
                 
-                console.log(plotLines);
-                
                 $.each(data.tweets, function () {
                     var date = new Date(new Date(this.time).toLocaleString()).getTime();
                     if ( date >= detailStart) {
@@ -133,6 +131,7 @@ detailedChart.prototype.init = function () {
                     },
                     plotOptions: {
                         series: {
+                            lineWidth: 1,
                             turboThreshold: 0,
                             marker: {
                                 enabled: false,

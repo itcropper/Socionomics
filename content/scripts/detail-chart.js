@@ -116,7 +116,6 @@ detailedChart.prototype.init = function () {
                         title: {
                             text: "Tweets Per Minute"
                         },
-                        type: 'logarithmic',
                         maxZoom: 0.1,
                         floor: 0
                     },

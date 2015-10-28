@@ -116,6 +116,7 @@ detailedChart.prototype.init = function () {
                         title: {
                             text: "Tweets Per Minute"
                         },
+                        type: 'logarithmic',
                         maxZoom: 0.1,
                         floor: 0
                     },
@@ -131,7 +132,7 @@ detailedChart.prototype.init = function () {
                     },
                     plotOptions: {
                         series: {
-                            lineWidth: 1,
+                            lineWidth: 2,
                             turboThreshold: 0,
                             marker: {
                                 enabled: false,

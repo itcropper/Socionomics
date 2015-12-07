@@ -19,8 +19,8 @@ exports.getAll = function(cb){
     
     Marker
         .find({"count" : { $exists : true }})
-        .sort({ time : -1 })
-        .limit(4000)
+        .sort({ time : 1 })
+        .limit(5000)
         .exec(function(err, res){
             if(!err){ 
                 cb(res); 

@@ -15,10 +15,12 @@ exports.save = function(count, cb){
 
 exports.getAll = function(cb){
     
+    var ThreeMonthsAgo = new Date(new Date().getTime - 1000 * 60 * 60 * 24 * 30 * 3);
+    
     Shooting
-        .find({})
-        .sort({ time : -1 })
-        .limit(5000)
+        .find({$gt : {"time": ThreeMonthsAgo }})
+        .sort({ "time" : 1 })
+        .limit(3000)
         .exec(function(err, res){
             if(!err){ 
                 cb(res); 

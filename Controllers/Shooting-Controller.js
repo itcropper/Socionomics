@@ -15,7 +15,7 @@ exports.save = function(count, cb){
 
 exports.getAll = function(cb){
     
-    var ThreeMonthsAgo = new Date(new Date().getTime - 1000 * 60 * 60 * 24 * 30 * 3);
+    var ThreeMonthsAgo = new Date(new Date()- 1000 * 60 * 60 * 24 * 30 * 3);
     
     Shooting
         .find({$gt : {"time": ThreeMonthsAgo }})

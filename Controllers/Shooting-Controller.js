@@ -19,8 +19,9 @@ exports.getAll = function(cb){
     
     Shooting
         .find({"time" : {"$gt" : ThreeMonthsAgo }})
-        .sort({ "time" : 1 })
+        .sort({ "time" : -1 })
         .limit(3000)
+        .sort({ "time" : 1 })
         .exec(function(err, res){
             if(!err){ 
                 cb(res); 

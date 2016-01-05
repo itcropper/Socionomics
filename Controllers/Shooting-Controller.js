@@ -18,7 +18,8 @@ exports.getAll = function(cb){
     Shooting
         .find({})
         .sort({ time : 1 })
-        .limit(50000)
+        .limit(10000)
+        .sort({time : -1})
         .exec(function(err, res){
             if(!err){ 
                 cb(res); 

@@ -84,12 +84,15 @@ detailedChart.prototype.init = function () {
                     
                 $.each(data.tweets, function () {
                     var date = new Date(new Date(this.time).toLocaleString()).getTime();
-                    if ( date >= detailStart) {
-                        detailData.push({x: date, y: this.count});
-                    }
+                    
+                    detailData.push({x: date, y: this.count});
+                    
                 });
                 
-                console.log(detailData.length);
+                if ( date >= detailStart) {
+                     
+                }
+                
 
                 // create a detail chart referenced by a global variable
                 detailChart = $('#detail-container').highcharts({

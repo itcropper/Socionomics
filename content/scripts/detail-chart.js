@@ -56,7 +56,7 @@ detailedChart.prototype.init = function () {
             function createDetail(masterChart) {
 
                 // prepare the detail chart
-                console.log(data.shootings.length);
+                
                 var detailData = [],
                     detailStart = toLocalDate(data.tweets[0].time),
                     plotLines = data.shootings.map(function(v){
@@ -81,7 +81,7 @@ detailedChart.prototype.init = function () {
                            };
                         }
                     }).clean(undefined);
-                
+                    
                 $.each(data.tweets, function () {
                     var date = new Date(new Date(this.time).toLocaleString()).getTime();
                     if ( date >= detailStart) {
@@ -145,7 +145,7 @@ detailedChart.prototype.init = function () {
                             }
                         },
                         spline: {
-                            turboThreshold: 2000                         
+                            turboThreshold: 20000                         
                         }
                     },
                     series: [{

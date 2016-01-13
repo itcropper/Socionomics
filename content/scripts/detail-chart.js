@@ -89,6 +89,11 @@ detailedChart.prototype.init = function () {
                     
                 });
 
+               detailData.sort(function(a, b){
+                    
+                    return a.x - b.x;
+               })
+               detailStart = detailData[0].x;
 
                 // create a detail chart referenced by a global variable
                 detailChart = $('#detail-container').highcharts({

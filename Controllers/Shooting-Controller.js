@@ -18,10 +18,8 @@ exports.getAll = function(cb){
     var ThreeMonthsAgo = new Date(new Date()- 1000 * 60 * 60 * 24 * 30 * 3);
     
     Shooting
-        .find({"time" : {"$gt" : ThreeMonthsAgo }})
+        .find({"time" : {"$lt" : ThreeMonthsAgo }})
         .sort({ "time" : -1 })
-        .limit(3000)
-        .sort({ "time" : 1 })
         .exec(function(err, res){
             if(!err){ 
                 cb(res); 

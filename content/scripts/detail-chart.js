@@ -56,6 +56,7 @@ detailedChart.prototype.init = function () {
             function createDetail(masterChart) {
 
                 // prepare the detail chart
+                console.log(data.shootings.length);
                 var detailData = [],
                     detailStart = toLocalDate(data.tweets[0].time),
                     plotLines = data.shootings.map(function(v){

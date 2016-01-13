@@ -88,6 +88,8 @@ detailedChart.prototype.init = function () {
                         detailData.push({x: date, y: this.count});
                     }
                 });
+                
+                console.log(detailData.length);
 
                 // create a detail chart referenced by a global variable
                 detailChart = $('#detail-container').highcharts({

@@ -18,7 +18,7 @@ exports.getAll = function(cb){
     var ThreeMonthsAgo = new Date(new Date()- 1000 * 60 * 60 * 24 * 30 * 3);
     
     Shooting
-        .find({}})
+        .find({})
         .sort({ "time" : -1 })
         .exec(function(err, res){
             if(!err){ 

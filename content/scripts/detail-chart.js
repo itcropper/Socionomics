@@ -147,7 +147,7 @@ detailedChart.prototype.init = function () {
                             }
                         },
                         spline: {
-                            turboThreshold: 20000                         
+                            turboThreshold: 2000                         
                         }
                     },
                     series: [{

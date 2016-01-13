@@ -88,11 +88,7 @@ detailedChart.prototype.init = function () {
                     detailData.push({x: date, y: this.count});
                     
                 });
-                
-                if ( date >= detailStart) {
-                     
-                }
-                
+
 
                 // create a detail chart referenced by a global variable
                 detailChart = $('#detail-container').highcharts({

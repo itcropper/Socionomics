@@ -181,7 +181,7 @@ detailedChart.prototype.init = function () {
                 .css('position', 'relative');
 
             $('<div id="detail-container">')
-                .appendTo($container);
+                .html($container);
 
             $('<div id="master-container">')
                 .css({

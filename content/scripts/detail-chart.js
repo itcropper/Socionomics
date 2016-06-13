@@ -181,7 +181,9 @@ detailedChart.prototype.init = function () {
                 .css('position', 'relative');
 
             $('<div id="detail-container">')
-                .html($container);
+                .appendTo($container);
+                
+            $('.loader').hide('fast');
 
             $('<div id="master-container">')
                 .css({

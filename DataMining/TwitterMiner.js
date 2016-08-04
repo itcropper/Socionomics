@@ -22,16 +22,19 @@ var tweetCount = 0,
     callBackFunction = function(){};
 
 exports.stream = function(){
-    
-    twit.stream('statuses/filter', {
-        'track': tweetFeeds.feeds
-    },
-    function(stream) {
-        stream.on('data', function (data, err) {
-            tweetCount += 1;
-            lastTweet = data;
-        }); 
-    });
+    try{
+        twit.stream('statuses/filter', {
+            'track': tweetFeeds.feeds
+        },
+        function(stream) {
+            stream.on('data', function (data, err) {
+                tweetCount += 1;
+                lastTweet = data;
+            }); 
+        });
+    }catch(e){
+        console.log(e);
+    }
 }
 
 var pushTweetCountToDB = function(){

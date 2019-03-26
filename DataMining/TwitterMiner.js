@@ -1,8 +1,13 @@
-var twitter = require('ntwitter'),
+let twitter = require('twitter'),
     tweetFeeds = require('./TwitterFeeds'),
     markerController = require('../Controllers/TwitterMarker'),
     configVars = {},
-    _INTERVAL_TIME = 1000 * 60 * 20; //20 minutes
+    _INTERVAL_TIME = 1000 * 60 * 1, //20 minutes
+    lastTweet = {},
+    tweetCount = 0,
+    timeSinceLastPush = new Date(),
+    callBackFunction = function(){},
+    twit = null;
 
 try {
     configVars = require('../local-vars.js').tokens;
@@ -14,28 +19,22 @@ try {
         access_token_secret: process.env.access_token_secret
     }
 }
+twit = new twitter(configVars);
 
-var twit = new twitter(configVars);
-var lastTweet = {};
-var tweetCount = 0,
-    timeSinceLastPush = new Date();
-    callBackFunction = function(){};
-
-exports.stream = function(){
-    try{
-        twit.stream('statuses/filter', {
-            'track': tweetFeeds.feeds
-        },
-        function(stream) {
-            stream.on('data', function (data, err) {
-                tweetCount += 1;
-                lastTweet = data;
-            }); 
-        });
-    }catch(e){
-        console.log(e);
-    }
+try{
+    twit.stream('statuses/filter', {
+        'track': "guncontrol"
+    },
+    function(stream) {
+        stream.on('data', function (data, err) {
+            tweetCount += 1;
+            lastTweet = data;
+        }); 
+    });
+}catch(e){
+    console.log(e);
 }
+
 
 var pushTweetCountToDB = function(){
     var minutesFromLast = (new Date() - timeSinceLastPush)/1000/60,

@@ -2,7 +2,7 @@
 var tweeter = require('./DataMining/TwitterMiner'),
     //priceScraper = require('./DataMining/PriceScraper').checkPage,
     normalize = require('./Helpers/Equations').sigmoid,
-    twitter = require('ntwitter'),
+    twitter = require('twitter'),
     hashtags = require('./DataMining/TwitterFeeds').feeds.join(" "),
     express = require('express'),
     app = express(),
@@ -54,10 +54,10 @@ app.get('/data', function(req, res){
 //});
 
 //stream Tweets
-//tweeter.stream(function(o){
+// tweeter.stream(function(o){
 //    io.emit('news', o);
-//});
-//tweeter.stream();
+// });
+// tweeter.stream();
  
 //priceScraper();
 //setInterval(priceScraper, 1000);

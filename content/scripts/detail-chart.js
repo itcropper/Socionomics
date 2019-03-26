@@ -117,7 +117,10 @@ detailedChart.prototype.init = function () {
                     },
                     xAxis: {
                         type: 'datetime',
-                        plotLines: plotLines
+                        plotLines: plotLines,
+                        labels: {
+                            enabled: false
+                        }
                     },
                     yAxis: {
                         title: {

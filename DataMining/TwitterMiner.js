@@ -1,4 +1,4 @@
-let twitter = require('twitter'),
+var twitter = require('twitter'),
     tweetFeeds = require('./TwitterFeeds'),
     markerController = require('../Controllers/TwitterMarker'),
     configVars = {},
@@ -6,7 +6,7 @@ let twitter = require('twitter'),
     lastTweet = {},
     tweetCount = 0,
     timeSinceLastPush = new Date(),
-    callBackFunction = function(){},
+    //callBackFunction = function(){},
     twit = null;
 
 try {
